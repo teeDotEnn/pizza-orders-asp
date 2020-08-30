@@ -12,6 +12,13 @@ namespace PizzaOrders.Services
 {
     public class OrderService
     {
-        
+        private readonly IMongoCollection<Order> _orders;
+
+        public OrderService(IDatabaseSettings settings)
+        {
+            var client = new MongoClient(settings.ConnectionString);
+            var database = client.GetDatabase(settings.DatabaseName);
+            _orders = database.GetCollection<Order>("orders");
+        }
     }
 }
