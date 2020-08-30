@@ -14,6 +14,7 @@ namespace PizzaOrders.Models
 {
     public class Order
     {
+        public string orderId{get;set;}
         public string firstName{get;set;}
         public string lastName{get;set;}
         public string streetNumber{get;set;}
@@ -25,6 +26,6 @@ namespace PizzaOrders.Models
         public string dough{get;set;}
         public string sauce{get;set;}
         public string cheese{get;set;}
-        public string toppings{get;set;}
+        public string[] toppings{get;set;}
     }
 }

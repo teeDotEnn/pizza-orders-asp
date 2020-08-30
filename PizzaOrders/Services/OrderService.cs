@@ -20,5 +20,29 @@ namespace PizzaOrders.Services
             var database = client.GetDatabase(settings.DatabaseName);
             _orders = database.GetCollection<Order>("orders");
         }
+
+        ///<summary>
+        /// Inserts a new order object into the db
+        ///</summary>
+        ///<params>
+        /// the order object to be inserted
+        ///</params>
+
+        public Order Create(Order order)
+        {
+            _orders.InsertOne(order);
+            return order;
+        }
+
+        public IList<Order> Read()=> 
+            _orders.Find(sub => true).ToList();
+
+        public Order Find(string telNumber) =>
+            _orders.Find(sub => sub.telNumber == telNumber).SingleOrDefault();
+        
+        public void Update(Order order)=>
+            _orders.ReplaceOne(sub => sub.telNumber == order.telNumber, order);
+        
+        
     }
 }
