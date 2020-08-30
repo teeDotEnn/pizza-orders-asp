@@ -1,3 +1,10 @@
+/* File Name: Order.cs
+ * Purpose: To provide a model for pizza orders as found in 
+ * A5 of PROG1800
+ * Rev History:
+ *     Created Aug 2020 by Tim Nigh
+ */
+
 using System.Collections.Generic;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
