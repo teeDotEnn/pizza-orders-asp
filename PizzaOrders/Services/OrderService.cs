@@ -18,7 +18,7 @@ namespace PizzaOrders.Services
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
-            _orders = database.GetCollection<Order>("orders");
+            _orders = database.GetCollection<Order>(settings.CollectionName);
         }
 
         ///<summary>
@@ -27,21 +27,25 @@ namespace PizzaOrders.Services
         ///<params>
         /// the order object to be inserted
         ///</params>
-
         public Order Create(Order order)
         {
             _orders.InsertOne(order);
             return order;
         }
 
-        public IList<Order> Read()=> 
-            _orders.Find(sub => true).ToList();
+        public List<Order> Get() =>
+            _orders.Find(order => true).ToList();
 
-        public Order Find(string telNumber) =>
-            _orders.Find(sub => sub.telNumber == telNumber).SingleOrDefault();
-        
-        public void Update(Order order)=>
-            _orders.ReplaceOne(sub => sub.telNumber == order.telNumber, order);
+        public Order GetOrder(string id) =>
+            _orders.Find(order => order.orderId == id).FirstOrDefault();
+
+        public void Update(string id, Order orderIn)=>
+            _orders.ReplaceOne(order => order.orderId == id, orderIn);
+
+        public void Remove(Order orderIn)=>
+            _orders.DeleteOne(order=>order.orderId == orderIn.orderId);
+        public void Remove(string id)=>
+            _orders.DeleteOne(order=>order.orderId == id);
         
         
     }

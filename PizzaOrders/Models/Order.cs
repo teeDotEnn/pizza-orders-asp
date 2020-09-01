@@ -14,6 +14,8 @@ namespace PizzaOrders.Models
 {
     public class Order
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string orderId{get;set;}
         public string firstName{get;set;}
         public string lastName{get;set;}
